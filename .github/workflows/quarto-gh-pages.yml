@@ -27,8 +27,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pandas numpy matplotlib
-
+          pip install jupyter PyYAML pandas numpy matplotlib
       - name: Debug project structure
         run: |
           ls -R
