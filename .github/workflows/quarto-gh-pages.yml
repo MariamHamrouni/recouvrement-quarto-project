@@ -42,6 +42,6 @@ jobs:
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
-          path: rapport/_site
+          path: rapport
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
