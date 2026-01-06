@@ -1,0 +1,95 @@
+---
+title: "Analyse du taux de recouvrement"
+subtitle: "EDA, KPI & visualisation"
+author: "Ton Nom"
+date: today
+lang: fr
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-depth: 2
+    number-sections: true
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{python}
+#| label: setup
+#| include: false
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+DATA_PATH = "../data/dataset_recouvrement.csv"
+pd.set_option("display.max_columns", 50)
+```
+
+# Introduction
+
+## Contexte
+Ce site présente une analyse descriptive d’un dataset contenant le **taux de recouvrement** (en %) par **Code_BR**, **Code_Regime** et **année**.
+
+## Objectifs
+- Nettoyer les données (conversion du % vers numérique)
+- Produire des KPI globaux
+- Comparer les BR / régimes
+- Étudier l’évolution temporelle
+
+---
+
+# Mini-dashboard (aperçu)
+
+```{python}
+df = pd.read_csv(DATA_PATH)
+df["taux_pct"] = (
+    df["T_Recouvremeant"].astype(str)
+      .str.replace("%", "", regex=False)
+      .str.replace(",", ".", regex=False)
+)
+df["taux_pct"] = pd.to_numeric(df["taux_pct"], errors="coerce")
+df = df.drop_duplicates()
+
+kpi = {
+    "Total lignes": len(df),
+    "BR uniques": df["Code_BR"].nunique(),
+    "Régimes uniques": df["Code_Regime"].nunique(),
+    "Années uniques": df["Annees"].nunique(),
+    "Taux moyen (%)": round(df["taux_pct"].mean(), 2),
+}
+
+cards = [
+    ("Total", kpi["Total lignes"]),
+    ("BR", kpi["BR uniques"]),
+    ("Régimes", kpi["Régimes uniques"]),
+    ("Moyenne %", kpi["Taux moyen (%)"]),
+]
+
+plt.figure(figsize=(12,2.4))
+plt.axis("off")
+x0, w = 0.02, 0.24
+for i,(t,v) in enumerate(cards):
+    x = x0 + i*w
+    plt.gca().add_patch(plt.Rectangle((x,0.18), w-0.03, 0.68, fill=False, linewidth=1.5))
+    plt.text(x+0.02, 0.75, str(t), fontsize=11, fontweight="bold")
+    plt.text(x+0.02, 0.35, str(v), fontsize=16)
+plt.title("Aperçu — KPI", pad=10)
+plt.show()
+```
+
+## Évolution rapide (taux moyen par année)
+
+```{python}
+ts = df.groupby("Annees")["taux_pct"].mean().sort_index()
+
+plt.figure(figsize=(8,4))
+plt.plot(ts.index.astype(int), ts.values, marker="o")
+plt.title("Taux moyen (%) par année")
+plt.xlabel("Année")
+plt.ylabel("Taux moyen (%)")
+plt.tight_layout()
+plt.show()
+```

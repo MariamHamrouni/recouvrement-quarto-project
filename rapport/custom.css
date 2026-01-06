@@ -1,0 +1,6 @@
+/* CSS minimal (propre) */
+h1, h2, h3 { letter-spacing: -0.2px; }
+pre code { font-size: 0.9em; }
+table { font-size: 0.95em; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }

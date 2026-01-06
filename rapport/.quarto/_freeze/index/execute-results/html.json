@@ -1,0 +1,12 @@
+{
+  "hash": "0052f57ce0a2c0682085f008920fe580",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Analyse du taux de recouvrement\"\nsubtitle: \"EDA, KPI & visualisation\"\nauthor: \"Ton Nom\"\ndate: today\nlang: fr\nformat:\n  html:\n    toc: true\n    toc-location: left\n    toc-depth: 2\n    number-sections: true\nexecute:\n  echo: false\n  warning: false\n  message: false\n---\n\n\n# Introduction\n\n## Contexte\nCe site présente une analyse descriptive d’un dataset contenant le **taux de recouvrement** (en %) par **Code_BR**, **Code_Regime** et **année**.\n\n## Objectifs\n- Nettoyer les données (conversion du % vers numérique)\n- Produire des KPI globaux\n- Comparer les BR / régimes\n- Étudier l’évolution temporelle\n\n---\n\n# Mini-dashboard (aperçu)\n\n::: {#95a3ef6e .cell execution_count=2}\n\n::: {.cell-output .cell-output-display}\n![](index_files/figure-html/cell-3-output-1.png){width=912 height=222}\n:::\n:::\n\n\n## Évolution rapide (taux moyen par année)\n\n::: {#8d72215b .cell execution_count=3}\n\n::: {.cell-output .cell-output-display}\n![](index_files/figure-html/cell-4-output-1.png){width=757 height=372}\n:::\n:::\n\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

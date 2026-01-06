@@ -1,0 +1,214 @@
+---
+title: "Rapport — Analyse du taux de recouvrement"
+subtitle: "Data processing, KPI & visualisation"
+author: "Ton Nom"
+date: today
+lang: fr
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-depth: 3
+    number-sections: true
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{python}
+#| label: setup
+#| include: false
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+DATA_PATH = "../data/dataset_recouvrement.csv"
+```
+
+# Inspection des données
+
+```{python}
+df_raw = pd.read_csv(DATA_PATH)
+df_raw.shape
+```
+
+```{python}
+df_raw.head(10)
+```
+
+```{python}
+df_raw.dtypes
+```
+
+# Data processing
+
+## Nettoyage et conversion du taux (%)
+
+```{python}
+df = df_raw.copy()
+df.columns = [c.strip() for c in df.columns]
+
+# Conversion "81.14%" -> 81.14
+df["taux_pct"] = (
+    df["T_Recouvremeant"].astype(str)
+      .str.replace("%", "", regex=False)
+      .str.replace(",", ".", regex=False)
+)
+df["taux_pct"] = pd.to_numeric(df["taux_pct"], errors="coerce")
+
+# Typage robuste
+for col in ["_id", "Code_BR", "Code_Regime", "Annees"]:
+    if col in df.columns:
+        df[col] = pd.to_numeric(df[col], errors="coerce").astype("Int64")
+
+# Doublons
+before = len(df)
+df = df.drop_duplicates()
+(before - len(df)), df.shape
+```
+
+## Valeurs manquantes
+
+```{python}
+na = (df.isna().mean() * 100).round(2).sort_values(ascending=False)
+na_df = na.reset_index()
+na_df.columns = ["colonne", "pourcentage_NA"]
+na_df
+```
+
+```{python}
+plt.figure(figsize=(10,4))
+plt.bar(na_df["colonne"], na_df["pourcentage_NA"])
+plt.xticks(rotation=75, ha="right")
+plt.title("Valeurs manquantes par colonne")
+plt.ylabel("%")
+plt.tight_layout()
+plt.show()
+```
+
+# KPI Dashboard
+
+```{python}
+kpi = {
+    "Total lignes": len(df),
+    "BR uniques": df["Code_BR"].nunique(dropna=True),
+    "Régimes uniques": df["Code_Regime"].nunique(dropna=True),
+    "Années uniques": df["Annees"].nunique(dropna=True),
+    "Taux moyen (%)": round(df["taux_pct"].mean(), 2),
+    "Taux min (%)": round(df["taux_pct"].min(), 2),
+    "Taux max (%)": round(df["taux_pct"].max(), 2),
+}
+
+kpi_df = pd.DataFrame({"KPI": list(kpi.keys()), "Valeur": list(kpi.values())})
+kpi_df
+```
+
+# Visualisations
+
+## Distribution (histogramme)
+
+```{python}
+plt.figure(figsize=(8,4))
+plt.hist(df["taux_pct"].dropna(), bins=20)
+plt.title("Distribution du taux de recouvrement (%)")
+plt.xlabel("Taux (%)")
+plt.ylabel("Fréquence")
+plt.tight_layout()
+plt.show()
+```
+
+## Évolution temporelle
+
+```{python}
+ts = df.groupby("Annees", dropna=True)["taux_pct"].mean().sort_index()
+
+plt.figure(figsize=(8,4))
+plt.plot(ts.index.astype(int), ts.values, marker="o")
+plt.title("Évolution du taux moyen de recouvrement par année")
+plt.xlabel("Année")
+plt.ylabel("Taux moyen (%)")
+plt.tight_layout()
+plt.show()
+
+ts
+```
+
+## Comparaison BR (Top 15)
+
+```{python}
+top_br = (
+    df.groupby("Code_BR")["taux_pct"].mean()
+      .sort_values(ascending=False)
+      .head(15)
+)
+
+plt.figure(figsize=(10,4))
+plt.bar(top_br.index.astype(str), top_br.values)
+plt.xticks(rotation=75, ha="right")
+plt.title("Top 15 BR — taux moyen de recouvrement")
+plt.xlabel("Code_BR")
+plt.ylabel("Taux moyen (%)")
+plt.tight_layout()
+plt.show()
+
+top_br.to_frame("taux_moyen_pct")
+```
+
+## Comparaison par régime
+
+```{python}
+reg = (
+    df.groupby("Code_Regime")["taux_pct"].mean()
+      .sort_values(ascending=False)
+)
+
+plt.figure(figsize=(10,4))
+plt.bar(reg.index.astype(str), reg.values)
+plt.xticks(rotation=75, ha="right")
+plt.title("Taux moyen de recouvrement par régime")
+plt.xlabel("Code_Regime")
+plt.ylabel("Taux moyen (%)")
+plt.tight_layout()
+plt.show()
+
+reg.to_frame("taux_moyen_pct")
+```
+
+## Heatmap BR × Année (Top 20 BR)
+
+```{python}
+pivot = df.pivot_table(index="Code_BR", columns="Annees", values="taux_pct", aggfunc="mean")
+top20 = df["Code_BR"].value_counts().head(20).index
+pivot2 = pivot.loc[pivot.index.isin(top20)].sort_index()
+
+plt.figure(figsize=(10,5))
+plt.imshow(pivot2.values, aspect="auto")
+plt.xticks(range(len(pivot2.columns)), pivot2.columns.astype(int))
+plt.yticks(range(len(pivot2.index)), pivot2.index.astype(str))
+plt.colorbar(label="Taux moyen (%)")
+plt.title("Heatmap — Taux moyen (%) | Top 20 BR × Années")
+plt.tight_layout()
+plt.show()
+
+pivot2
+```
+
+# Conclusion
+
+Cette analyse a permis :
+- la conversion et le nettoyage du taux (%),
+- la production d’indicateurs globaux,
+- des visualisations facilitant la comparaison des BR / régimes et l’évolution temporelle.
+
+# Annexes
+
+## Exports
+
+```{python}
+#| echo: true
+df.to_csv("dataset_recouvrement_clean.csv", index=False, encoding="utf-8")
+kpi_df.to_csv("kpi_recouvrement.csv", index=False, encoding="utf-8")
+print("✅ Exports générés : dataset_recouvrement_clean.csv, kpi_recouvrement.csv")
+```

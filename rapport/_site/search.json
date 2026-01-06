@@ -1,0 +1,93 @@
+[
+  {
+    "objectID": "rapport.html",
+    "href": "rapport.html",
+    "title": "Rapport — Analyse du taux de recouvrement",
+    "section": "",
+    "text": "(225, 5)\n\n\n\n\n\n\n\n\n\n\n\n_id\nCode_BR\nCode_Regime\nAnnees\nT_Recouvremeant\n\n\n\n\n0\n1\n10\n100\n2023\n81.14%\n\n\n1\n2\n12\n100\n2023\n87.66%\n\n\n2\n3\n13\n100\n2023\n93.09%\n\n\n3\n4\n14\n100\n2023\n93.09%\n\n\n4\n5\n16\n100\n2023\n86.99%\n\n\n5\n6\n17\n100\n2023\n95.69%\n\n\n6\n7\n18\n100\n2023\n88.76%\n\n\n7\n8\n19\n100\n2023\n93.58%\n\n\n8\n9\n22\n100\n2023\n89.56%\n\n\n9\n10\n23\n100\n2023\n89.91%\n\n\n\n\n\n\n\n\n\n_id                 int64\nCode_BR             int64\nCode_Regime         int64\nAnnees              int64\nT_Recouvremeant    object\ndtype: object"
+  },
+  {
+    "objectID": "rapport.html#nettoyage-et-conversion-du-taux",
+    "href": "rapport.html#nettoyage-et-conversion-du-taux",
+    "title": "Rapport — Analyse du taux de recouvrement",
+    "section": "2.1 Nettoyage et conversion du taux (%)",
+    "text": "2.1 Nettoyage et conversion du taux (%)\n\n\n(0, (225, 6))"
+  },
+  {
+    "objectID": "rapport.html#valeurs-manquantes",
+    "href": "rapport.html#valeurs-manquantes",
+    "title": "Rapport — Analyse du taux de recouvrement",
+    "section": "2.2 Valeurs manquantes",
+    "text": "2.2 Valeurs manquantes\n\n\n\n\n\n\n\n\n\ncolonne\npourcentage_NA\n\n\n\n\n0\n_id\n0.0\n\n\n1\nCode_BR\n0.0\n\n\n2\nCode_Regime\n0.0\n\n\n3\nAnnees\n0.0\n\n\n4\nT_Recouvremeant\n0.0\n\n\n5\ntaux_pct\n0.0"
+  },
+  {
+    "objectID": "rapport.html#distribution-histogramme",
+    "href": "rapport.html#distribution-histogramme",
+    "title": "Rapport — Analyse du taux de recouvrement",
+    "section": "4.1 Distribution (histogramme)",
+    "text": "4.1 Distribution (histogramme)"
+  },
+  {
+    "objectID": "rapport.html#évolution-temporelle",
+    "href": "rapport.html#évolution-temporelle",
+    "title": "Rapport — Analyse du taux de recouvrement",
+    "section": "4.2 Évolution temporelle",
+    "text": "4.2 Évolution temporelle\n\n\n\n\n\n\n\n\n\nAnnees\n2023    61.210444\nName: taux_pct, dtype: float64"
+  },
+  {
+    "objectID": "rapport.html#comparaison-br-top-15",
+    "href": "rapport.html#comparaison-br-top-15",
+    "title": "Rapport — Analyse du taux de recouvrement",
+    "section": "4.3 Comparaison BR (Top 15)",
+    "text": "4.3 Comparaison BR (Top 15)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ntaux_moyen_pct\n\n\nCode_BR\n\n\n\n\n\n85\n69.582\n\n\n86\n69.560\n\n\n58\n69.528\n\n\n56\n67.576\n\n\n48\n67.522\n\n\n71\n66.968\n\n\n53\n66.774\n\n\n13\n66.700\n\n\n81\n66.260\n\n\n49\n66.256\n\n\n55\n66.114\n\n\n80\n65.564\n\n\n50\n65.286\n\n\n83\n65.044\n\n\n52\n64.688"
+  },
+  {
+    "objectID": "rapport.html#comparaison-par-régime",
+    "href": "rapport.html#comparaison-par-régime",
+    "title": "Rapport — Analyse du taux de recouvrement",
+    "section": "4.4 Comparaison par régime",
+    "text": "4.4 Comparaison par régime\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ntaux_moyen_pct\n\n\nCode_Regime\n\n\n\n\n\n280\n91.826444\n\n\n100\n87.839333\n\n\n320\n48.538000\n\n\n340\n45.086889\n\n\n350\n32.761556"
+  },
+  {
+    "objectID": "rapport.html#heatmap-br-année-top-20-br",
+    "href": "rapport.html#heatmap-br-année-top-20-br",
+    "title": "Rapport — Analyse du taux de recouvrement",
+    "section": "4.5 Heatmap BR × Année (Top 20 BR)",
+    "text": "4.5 Heatmap BR × Année (Top 20 BR)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAnnees\n2023\n\n\nCode_BR\n\n\n\n\n\n10\n64.094\n\n\n12\n55.168\n\n\n13\n66.700\n\n\n14\n64.598\n\n\n16\n64.608\n\n\n17\n60.720\n\n\n18\n62.518\n\n\n19\n61.062\n\n\n22\n63.886\n\n\n23\n60.386\n\n\n24\n63.932\n\n\n25\n58.346\n\n\n28\n58.918\n\n\n29\n56.454\n\n\n31\n56.286\n\n\n34\n50.526\n\n\n36\n57.690\n\n\n37\n51.074\n\n\n38\n60.664\n\n\n40\n43.300"
+  },
+  {
+    "objectID": "rapport.html#exports",
+    "href": "rapport.html#exports",
+    "title": "Rapport — Analyse du taux de recouvrement",
+    "section": "6.1 Exports",
+    "text": "6.1 Exports\n\n\nCode\ndf.to_csv(\"dataset_recouvrement_clean.csv\", index=False, encoding=\"utf-8\")\nkpi_df.to_csv(\"kpi_recouvrement.csv\", index=False, encoding=\"utf-8\")\nprint(\"✅ Exports générés : dataset_recouvrement_clean.csv, kpi_recouvrement.csv\")\n\n\n✅ Exports générés : dataset_recouvrement_clean.csv, kpi_recouvrement.csv"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Analyse du taux de recouvrement",
+    "section": "",
+    "text": "Ce site présente une analyse descriptive d’un dataset contenant le taux de recouvrement (en %) par Code_BR, Code_Regime et année.\n\n\n\n\nNettoyer les données (conversion du % vers numérique)\nProduire des KPI globaux\nComparer les BR / régimes\nÉtudier l’évolution temporelle"
+  },
+  {
+    "objectID": "index.html#contexte",
+    "href": "index.html#contexte",
+    "title": "Analyse du taux de recouvrement",
+    "section": "",
+    "text": "Ce site présente une analyse descriptive d’un dataset contenant le taux de recouvrement (en %) par Code_BR, Code_Regime et année."
+  },
+  {
+    "objectID": "index.html#objectifs",
+    "href": "index.html#objectifs",
+    "title": "Analyse du taux de recouvrement",
+    "section": "",
+    "text": "Nettoyer les données (conversion du % vers numérique)\nProduire des KPI globaux\nComparer les BR / régimes\nÉtudier l’évolution temporelle"
+  },
+  {
+    "objectID": "index.html#évolution-rapide-taux-moyen-par-année",
+    "href": "index.html#évolution-rapide-taux-moyen-par-année",
+    "title": "Analyse du taux de recouvrement",
+    "section": "2.1 Évolution rapide (taux moyen par année)",
+    "text": "2.1 Évolution rapide (taux moyen par année)"
+  }
+]

@@ -1,0 +1,29 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Recouvrement — Tunisia"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Accueil
+      - href: rapport.qmd
+        text: Rapport
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-location: left
+    toc-depth: 3
+    number-sections: true
+    code-fold: show
+    code-tools: true
+    embed-resources: true
+    css: custom.css
+
+execute:
+  echo: false
+  warning: false
+  message: false
